@@ -1,0 +1,64 @@
+body {
+background: url('dark_forest_background.jpg') no-repeat center center fixed;
+background-size: cover;
+background-color: black;
+color: #ddd;
+font-family: 'EB Garamond', serif;
+text-align: center;
+padding: 20px;
+}
+
+h1 {
+font-family: 'UnifrakturCook', cursive;
+font-size: 3em;
+color: #990000;
+}
+
+#game-container {
+max-width: 800px;
+margin: auto;
+padding: 20px;
+background-color: rgba(0, 0, 0, 0.85);
+border: 2px solid #333;
+border-radius: 20px;
+box-shadow: 0 0 30px #111;
+}
+
+button {
+margin: 6px;
+padding: 10px 20px;
+background: #111;
+color: white;
+border: 1px solid #555;
+border-radius: 8px;
+cursor: pointer;
+transition: background 0.3s;
+}
+
+button:hover {
+background: #444;
+}
+
+#story-text {
+margin: 20px 0;
+min-height: 120px;
+font-size: 1.2em;
+}
+
+#map {
+display: grid;
+grid-template-columns: repeat(10, 40px);
+gap: 5px;
+justify-content: center;
+}
+
+.tile {
+width: 40px;
+height: 40px;
+background-color: #222;
+border: 1px solid #555;
+}
+
+.tile.revealed {
+background-color: #666;
+}
