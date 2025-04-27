@@ -38,7 +38,6 @@
 <button onclick="loadGame()">Load Saved Game</button>
 </div>
 
-
 <!-- Player Stats -->
 <div id="player-stats" style="display:none;">
 <img id="hero-portrait" src="" alt="Hero" style="width:100px; height:auto;">
@@ -54,10 +53,8 @@
 <!-- Story Text -->
 <div id="story-text"></div>
 
-<!-- Game Choices -->
+<!-- Choices -->
 <div id="choices" style="display:none;">
-<br><br>
-<button onclick="returnToMenu()">Main Menu</button>
 <button onclick="explore()">Explore</button>
 <button onclick="rest()">Rest</button>
 <button onclick="fight()">Fight</button>
@@ -68,17 +65,24 @@
 <button onclick="move('west')">West</button>
 <br><br>
 <button onclick="saveGame()">Save Game</button>
+<button onclick="returnToMenu()">Main Menu</button>
 </div>
 
 <!-- Map -->
 <div id="map" style="margin-top:20px;"></div>
+</div>
 
 <!-- Background Music -->
 <audio id="bg-music" loop autoplay>
 <source src="sounds/dark_forest_music.mp3" type="audio/mpeg">
 </audio>
+
+<!-- Fade overlay and spinner -->
+<div id="fade-overlay">
+<div id="loading-spinner">Loading...</div>
 </div>
 
 <script src="game.js"></script>
 </body>
 </html>
+
