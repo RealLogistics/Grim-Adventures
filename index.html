@@ -17,19 +17,27 @@
 <div id="character-creation">
 <p>Enter your Name:</p>
 <input type="text" id="player-name" placeholder="Name...">
+
 <p>Choose your Gender:</p>
 <select id="player-gender">
 <option>Male</option>
 <option>Female</option>
 <option>Other</option>
 </select>
+
 <p>Choose your Class:</p>
-<button onclick="chooseClass('Knight')">Knight</button>
-<button onclick="chooseClass('Mage')">Mage</button>
-<button onclick="chooseClass('Rogue')">Rogue</button>
+<select id="player-class">
+<option>Knight</option>
+<option>Mage</option>
+<option>Rogue</option>
+</select>
+
+<br><br>
+<button onclick="startGame()">Play Game</button>
 <br><br>
 <button onclick="loadGame()">Load Saved Game</button>
 </div>
+
 
 <!-- Player Stats -->
 <div id="player-stats" style="display:none;">
