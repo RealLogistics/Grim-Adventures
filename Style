@@ -89,3 +89,26 @@ font-family: 'EB Garamond', serif;
 opacity: 0;
 transition: opacity 0.5s ease;
 }
+#game-title {
+animation: titleDrop 2s ease forwards;
+opacity: 0;
+transform: translateY(-100px);
+}
+
+@keyframes titleDrop {
+0% {
+opacity: 0;
+transform: translateY(-100px);
+text-shadow: none;
+}
+50% {
+opacity: 1;
+transform: translateY(10px);
+text-shadow: 0 0 5px red;
+}
+100% {
+opacity: 1;
+transform: translateY(0px);
+text-shadow: 0 0 10px crimson, 0 0 20px crimson;
+}
+}
