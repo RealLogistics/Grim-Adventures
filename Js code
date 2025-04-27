@@ -26,6 +26,12 @@ const enemies = [
 { name: "Revenant", hp: 90, attack: 35, xp: 80 }
 ];
 
+// Start the game after filling info
+function startGame() {
+const selectedClass = document.getElementById('player-class').value;
+chooseClass(selectedClass);
+}
+
 // SOUND EFFECTS
 const sounds = {
 attack: new Audio('sounds/attack.mp3'),
