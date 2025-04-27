@@ -1,4 +1,4 @@
-// Grim Adventures - Full Developer Version
+// Grim Adventures - Full Final Version
 
 // GLOBAL VARIABLES
 let playerName = '';
@@ -7,7 +7,7 @@ let playerClass = '';
 let health, mana, xp, level, nextLevelXp;
 let inventory = [];
 let skills = [];
-let x = 25, y = 25; // Start center of 50x50 map
+let x = 25, y = 25; // Start in center of 50x50 map
 const mapSize = 50;
 const map = [];
 const bosses = [
@@ -26,12 +26,6 @@ const enemies = [
 { name: "Revenant", hp: 90, attack: 35, xp: 80 }
 ];
 
-// Start the game after filling info
-function startGame() {
-const selectedClass = document.getElementById('player-class').value;
-chooseClass(selectedClass);
-}
-
 // SOUND EFFECTS
 const sounds = {
 attack: new Audio('sounds/attack.mp3'),
@@ -43,7 +37,22 @@ rain: new Audio('sounds/rain.mp3'),
 thunder: new Audio('sounds/thunder.mp3')
 };
 
-// CHARACTER CREATION
+// START GAME
+function startGame() {
+const fade = document.getElementById('fade-overlay');
+const spinner = document.getElementById('loading-spinner');
+fade.style.opacity = 1;
+spinner.style.opacity = 1;
+
+setTimeout(() => {
+const selectedClass = document.getElementById('player-class').value;
+chooseClass(selectedClass);
+fade.style.opacity = 0;
+spinner.style.opacity = 0;
+}, 1000);
+}
+
+// CHOOSE CLASS
 function chooseClass(selectedClass) {
 playerName = document.getElementById('player-name').value || 'Unknown';
 playerGender = document.getElementById('player-gender').value;
@@ -83,6 +92,7 @@ document.getElementById('player-title').innerText = `${playerName} the ${playerC
 
 initMap();
 updateStats();
+changeBackground('dark_forest_background.jpg');
 typeStory(`${playerName} the ${playerClass} steps into the misty unknown...`);
 }
 
@@ -112,7 +122,7 @@ document.getElementById('y').innerText = y;
 renderMap();
 }
 
-// TYPING STORY TEXT
+// TYPING EFFECT
 function typeStory(text) {
 let storyText = document.getElementById('story-text');
 storyText.innerHTML = '';
@@ -157,6 +167,7 @@ return;
 map[y][x] = true;
 randomWeather();
 typeStory(`You move ${direction} into the shifting mist...`);
+changeBackground('dark_forest_background.jpg');
 updateStats();
 }
 
@@ -168,6 +179,11 @@ sounds.thunder.play();
 } else if (chance < 0.10) {
 sounds.rain.play();
 }
+}
+
+// CHANGE BACKGROUND
+function changeBackground(imageFile) {
+document.body.style.backgroundImage = `url('${imageFile}')`;
 }
 
 // EXPLORE
@@ -189,6 +205,7 @@ inventory.push("Relic");
 typeStory("You discover an ancient relic!");
 }
 }
+changeBackground('dark_forest_background.jpg');
 updateStats();
 }
 
@@ -199,9 +216,11 @@ if (event < 0.5) {
 typeStory("A portal appears! You are teleported randomly.");
 x = Math.floor(Math.random() * mapSize);
 y = Math.floor(Math.random() * mapSize);
+changeBackground('magic_portal.jpg');
 } else {
 typeStory("You find an Ancient Shrine. +100 XP!");
 gainXp(100);
+changeBackground('magic_portal.jpg');
 }
 }
 
@@ -210,7 +229,8 @@ function rest() {
 health += 30;
 mana += 30;
 sounds.rest.play();
-typeStory("You rest under a darkened tree, regaining strength.");
+typeStory("You rest under a calm clearing, regaining strength.");
+changeBackground('calm_clearing.jpg');
 updateStats();
 }
 
@@ -220,9 +240,11 @@ let enemy;
 if (bosses.some(b => b.x === x && b.y === y)) {
 enemy = { name: "Ancient Wyrm", hp: 250, attack: 60, xp: 300 };
 sounds.boss.play();
+changeBackground('boss_lair.jpg');
 } else {
 enemy = enemies[Math.floor(Math.random() * enemies.length)];
 sounds.attack.play();
+changeBackground('battlefield.jpg');
 }
 
 const playerAttack = Math.floor(Math.random() * 50) + (skills.length * 5);
@@ -308,5 +330,48 @@ updateStats();
 typeStory("Game Loaded.");
 } else {
 typeStory("No save found.");
+}
+}
+
+// RETURN TO MAIN MENU
+function returnToMenu() {
+if (confirm("Are you sure you want to return to the main menu? All unsaved progress will be lost.")) {
+const fade = document.getElementById('fade-overlay');
+const spinner = document.getElementById('loading-spinner');
+fade.style.opacity = 1;
+spinner.style.opacity = 1;
+
+setTimeout(() => {
+playerName = '';
+playerGender = '';
+playerClass = '';
+health = 100;
+mana = 50;
+xp = 0;
+level = 1;
+nextLevelXp = 100;
+inventory = [];
+skills = [];
+x = 25;
+y = 25;
+bossesDefeated = 0;
+
+for (let i = 0; i < mapSize; i++) {
+map[i] = [];
+for (let j = 0; j < mapSize; j++) {
+map[i][j] = false;
+}
+}
+
+document.getElementById('character-creation').style.display = 'block';
+document.getElementById('player-stats').style.display = 'none';
+document.getElementById('choices').style.display = 'none';
+document.getElementById('story-text').innerHTML = '';
+document.getElementById('map').innerHTML = '';
+
+fade.style.opacity = 0;
+spinner.style.opacity = 0;
+changeBackground('dark_forest_background.jpg');
+}, 1000);
 }
 }
